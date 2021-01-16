@@ -1,5 +1,7 @@
 git status / 깃허브와 다른 파일이 있는지 확인
 
+git pull / 깃허브에서 파일 받아오기
+
 git add 파일이름 / 깃에 파일 추가
 
 git add . / 모든 파일 추가
@@ -17,7 +19,56 @@ git push / 커밋 내용 온라인 업로드
 git reset --hard 해시값 / 해시값의 지점으로 돌아감, 다 지워버림
 --soft / 해시값 지점으로 돌아가나 로그 그대로 있음
 
-git log / 깃 로그
+gitlog / 깃허브에 예쁘게 나와있으니 단순히 확인용도로 사용하자
+git log / 깃 로그, 커밋 정보들 확인 가능... Q를 눌러서 나올 수 있고 로그가 길면 spacebar로 로그들 더 볼 수 있다
+git log --status / 실제로 파일에 얼마나 많은 줄이 추가되었는지 알 수있다
+git log --graph / 그래프 형태로 로그 출력
+git log -p -3 / 커밋에 적용된 구체적인 사항을 알 수있다         
+git log --pretty=oneline / 한줄로 예쁘게 출력...? 프리티는 다른 명령어가 많다
+
 
 git push -f / 강제로 푸시 명령 진행
 
+branch / 다른 파일 저장소를 따로 만들어서 메인 파일을 안건드리고 따로 만드는것...
+         / merge로 파일 합치고 삭제 해주는게 좋다?
+git branch / 깃 브랜치 확인
+git branch 브랜치이름 / 브랜치이름 브랜치 생성
+git checkout 브린치이름 / 브랜치 선택
+git merge 브랜치이름 / 다른 브렌치에서 머지 가능
+git branch -d 브랜치이름 / 브랜치이름 브랜치 제거
+메인과 서브 브랜치가 코드가 다를 때 그 코드 내에서 확인하면 달라진게 나온다....
+그래서 어떤 코드를 할 지 선택하면 된다
+
+원격저장소? / 보통 깃허브를 원격 저장소로 지정된다...
+원격 저장소 관리
+git remote / 현재 원격저장소 확인
+git remote show 이름 / 원격저장소 상세 확인
+git remote add 이름 / 이름이라는 원격저장소 생성
+git remote -v / 전체 원격저장소 확인
+git remote rename 이름 바꿀이름 / 원격저장소 이름 변경
+git remote rm 이름 / 원격저장소 제거
+
+
+git README.md 파일 작성하기
+
+git archive / 깃에서 소스코드만 압축하기
+git archive --format=zip 브랜치이름 -o 압축이름.zip
+git archive --format=zip 브랜치이름 -o ../압축이름.zip / 경로 지정 변경
+
+
+git init / 깃 프로젝트 초기화
+
+git rebase / 커밋을 수정, 삭제
+git rebase -i HEAD~3 / 최근 3개의 커밋내역을 바꿀 수 있음
+git rebase -i 특정커밋해쉬 / 특정 커밋값을 볼 수있음
+rebase로 들어가면 명령어가 나와서 그거 보면서 하면 될듯
+wq! -> 바꾼 에디터 저장
+
+깃 환경설정 // 솔직히 들어도 잘 모르겠네...
+git config --list
+git config --global user.name "이름"
+git config --global user.email "이메일"
+kang 의 .gitconfig 파일에 저장되어있다
+git config --global core.editor vi // ?? 에디터 바꾸는거 같은데 잘 모르겠다
+
+git commit 날짜 변경 // 음... 깃 사이트에 커밋 시간을 바꾸는건데... 굳이?
