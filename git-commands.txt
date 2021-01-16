@@ -1,0 +1,23 @@
+git status / 깃허브와 다른 파일이 있는지 확인
+
+git add 파일이름 / 깃에 파일 추가
+
+git add . / 모든 파일 추가
+
+git reset 파일이름 / 기존 add파일들 초기화
+
+git commit -m "할 말 [파일이름]"
+
+git checkout -- 파일이름 / 수정된 내역 무시
+
+git commit --amend / 커밋 내용 수정, a는 수정모드, 그 내용들 바꾸기 , :wq! 쓰면 저장
+
+git push / 커밋 내용 온라인 업로드
+
+git reset --hard 해시값 / 해시값의 지점으로 돌아감, 다 지워버림
+--soft / 해시값 지점으로 돌아가나 로그 그대로 있음
+
+git log / 깃 로그
+
+git push -f / 강제로 푸시 명령 진행
+
