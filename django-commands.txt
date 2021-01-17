@@ -1,0 +1,20 @@
+설치 
+django-admin startproject pjname
+
+서버 실행
+폴더에 들어가서 cmd
+python manage.py runserver
+python manage.py runserver 포트 / ex) 8080
+python manage.py runserver 0:8080 / 서버의 ip를 변경하려면 포트와 함께 전달
+
+
+migrate 명령은 database 테이블 생성한다
+python manage.py migrate
+models.py에서 데이터 베이스 모델을 만듦
+create table 이전에 프로젝트에 사이트가 설치되었음을 알려야함
+ex) mysite/settings.py - INSTALLED_APPS 에  사이트.apps.config를 넣어야 한다
+
+1. models.py DB 테이블 에서 만듦
+2. python manage.py makemigrations polls 라는 명령어로 migration 폴더에 코드 만들어줌
+3. python manage.py sqlmigrate polls 0001 라는 명령어로 sql코드를 생성
+4. python manage.py migrate 라는 명령어로 데이터베이스에 해당 모델 테이블을 만듬
