@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    {% if latest_question_list %}
+    {% for board in context_object_name %}
+    <div id="boardTitle"><a href="{% url 'pcsub:board' board.id %}"></a>{{ board.title }}</div>
+    {% endfor %}
+    {% else %}
+    <p>No polls are available.</p>
+    {% endif %}
+</div>
+</body>
+</html>
