@@ -4,4 +4,4 @@
 
 
  
-###1/20 django로 board 만들기 시작
+### 1/20 django로 board 만들기 시작
