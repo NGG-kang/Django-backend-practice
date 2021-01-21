@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>글 쓰기</title>
+</head>
+<body>
+<form action="{% url 'pcsub:writeBoard' %}" method="post">
+    {% csrf_token %}
+    <textarea name="content" id="title" rows="15">1</textarea>
+    <textarea name="content" id="context" rows="15">1</textarea>
+    <input type="submit" value="write" />
+</form>
+</body>
+</html>
