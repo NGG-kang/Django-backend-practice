@@ -9,12 +9,12 @@
     {% if board_list %}
     <div>
         {% for board in board_list %}
-        <div id="boardTitle{{ board.id }}"><a href="{% url 'pcsub:detail' board.id %}">{{ board.title }}</a></div>
-        <div id="boardcontext{{ board.id }}">{{ board.context }}</div>
+        <div id="boardTitle{{ board.id }}"><a href="{% url 'pcsub:detail' board.id %}">제목 : {{ board.title }}</a></div>
+
         {% endfor %}
     </div>
     {% else %}
-    <p>No polls are available.</p>
+    <p>글이 없습니다</p>
     {% endif %}
 
     <div><a href="{% url 'pcsub:write' %}">글작성</a></div>

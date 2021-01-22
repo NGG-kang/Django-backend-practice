@@ -7,8 +7,8 @@
 <body>
 <form action="{% url 'pcsub:writeBoard' %}" method="post">
     {% csrf_token %}
-    <textarea name="content" id="title" rows="15">1</textarea>
-    <textarea name="content" id="context" rows="15">1</textarea>
+    <textarea name="title" id="title"  rows="15">1</textarea>
+    <textarea name="context" id="context" rows="15">1</textarea>
     <input type="submit" value="write" />
 </form>
 </body>
