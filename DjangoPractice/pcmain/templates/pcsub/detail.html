@@ -2,15 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>글 세부</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 <body>
-    <h1>{{ board.title }}</h1>
-    <div>작성자 : </div><div>{{ board.author.username }}</div>
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-    <div>내용 : </div><div name="context" id="context" rows="15">{{ board.context }} </div>
-    <div>날짜 : </div><div name="pub_date" id="pub_date" rows="15">{{ board.pub_date }} </div>
-    <div><a href="{% url 'pcsub:modify' board.id %}">글수정</a></div>
-    <div><a href="{% url 'pcsub:delete' board.id %}">글삭제</a></div>
+<div class="mx-auto" style="width: 600px;">
+    <div class="input-group input-group-sm mb-3" style="margin-top:10px">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm" >제목</span>
+        </div>
+        <div type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="title" id="title">{{ board.title }}</div>
+    </div>
+
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">작성시간</span>
+        </div>
+        <div class="form-control" aria-label="With textarea" name="pub_date" id="pub_date" rows="15">{{ board.pub_date }}</div>
+    </div>
+    <div class="input-group" style="margin-top:10px">
+        <div class="input-group-prepend">
+            <span class="input-group-text">내용</span>
+        </div>
+        <div class="form-control" aria-label="With textarea" name="context" id="context" style="height:400px;">{{ board.context }}</div>
+    </div>
+    {% if request.user == board.author %}
+    <button class="btn btn-secondary btn-lg" type="button" style="margin-top:10px" onclick="location.href='{% url 'pcsub:modify' board.id %}'">글 수정</button>
+    <button class="btn btn-secondary btn-lg" type="button" style="margin-top:10px" onclick="location.href='{% url 'pcsub:delete' board.id %}'">글 삭제</button>
+    {% endif %}
+</div>
 </body>
 </html>
