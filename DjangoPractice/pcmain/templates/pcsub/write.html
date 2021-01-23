@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>글 쓰기</title>
+</head>
+<body>
+<form action="{% url 'pcsub:writeBoard' %}" method="post">
+    {% csrf_token %}
+    <div class="input-group input-group-sm mb-3"  >
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm" >제목</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" {% if not user.is_authenticated %}disabled{% endif %} name="title" id="title">
+    </div>
+
+    <div class="input-group input-group-lg" >
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">내용</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" {% if not user.is_authenticated %}disabled{% endif %} name="context" id="context">
+    </div>
+    <input {% if not user.is_authenticated %}disabled{% endif %} type="submit" value="작성" />
+</form>
+</body>
+</html>
