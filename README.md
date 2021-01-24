@@ -31,6 +31,8 @@ django 기반으로 네비게이션 조차 없는 완전 기본 게시판을 만
 
 게시판을 만들면서 사용한 코드와 내용들을 정리한 내용이다
 
+#### 1. 프로젝트 및 앱 생성
+
 기본적인 어드민 프로젝트 생성
   
     $ django-admin startproject project
@@ -48,8 +50,51 @@ django 기반으로 네비게이션 조차 없는 완전 기본 게시판을 만
 
 이렇게 만들기만 해도 절반은 왔다
 
-처음 시작 할 땐 세팅을 해줘야 하는데
+처음 시작 할 땐 세팅을 해줘야 하는데 
 project.setting 에서  INSTALLS_APPS에 app을 추가 해줘야 한다
-이름이 app이라면 app.apps.AppConfig를 추가 하면 되는데 이건
+
+이름이 app이라면 app.apps.AppConfig를 추가 하면 되는데
+
 app.setting.py에 들어있으므로 그것을 참조 하면 된다
 
+#### 2. 모델 수정(데이터베이스 생성)
+
+django에서는 데이터베이스 생성 명령어를 지원한다
+
+생성한 app의 models에서 클래스를 만들면
+
+django의 명령어 하나만으로 sqlite3 데이터베이스를 뚝딱 만들어준다
+
+거기다 sql문 쓸 일도 없으니 얼마나 편한가?
+
+일단 본 프로젝트에 사용한 model을 올려보자면
+
+```python
+class Board(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    context = models.CharField(max_length=1000)
+    pub_date = models.DateTimeField('date published')
+
+    def __str__(self):
+        return self.title
+
+    def was_published_recently(self):
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+```
+
+대충 Board 클래스로 만들고
+
+title, conext, pub_date를 넣었다
+
+django에서는 db를 models로 말한다
+
+CharField, DateTimeField 만 사용했다
+
+django의 Field들은 
+[DjangoDoc](https://docs.djangoproject.com/en/3.1/ref/models/fields/)
+ 사이트에 정리되어 있으므로 필요할 때 들어가 보자
+
+author도 django에서 지원해주는 유저계정인데 나중에 알아보도록 하자
+
+일단 model에 
