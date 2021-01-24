@@ -23,13 +23,19 @@ django 기반으로 네비게이션 조차 없는 완전 기본 게시판을 만
 
 볼품 없는 게시판이지만 연습한다는 의미로 만들어 보았다
 
+
+
 ------------
+
+
 
 ## 코드 정리
 
 다음으로는 
 
 게시판을 만들면서 사용한 코드와 내용들을 정리한 내용이다
+
+
 
 ### 1. 프로젝트 및 앱 생성
 
@@ -56,6 +62,7 @@ project.setting 에서  INSTALLS_APPS에 app을 추가 해줘야 한다
 이름이 app이라면 app.apps.AppConfig를 추가 하면 되는데
 
 app.setting.py에 들어있으므로 그것을 참조 하면 된다
+
 
 
 ### 2. 모델 수정(데이터베이스 생성)
@@ -115,7 +122,8 @@ models.py를 기반으로 새 마이그레이션을 생성한다
 migration은 add와 commit으로, migrate는 push 로 생각하면 될것같다
 
 
-### 3. urls, views, models약간?
+
+### 3. urls, views의 관계
 
 
 여기부턴 일단 내 생각대로 적고 정리하는 시간 / 지금 이해하는 중이라 따로 정리 할 수가 없다
@@ -124,23 +132,12 @@ url, views, templates 이 셋이 화면 구성에는 가장 중요한 역할이�
 
 models도 데이터관련으로 중요하긴 하다만 정작 본인이 제대로 보질 않아서 일단 화면구성에 중점을 두었다
 
+
 #### urls 생각 정리
-
-urls.py 의 app_name 정리
-
-html에서 href의 urls을 정할 때 {% url app:name %}를 쓰잖아?
-
-그게 알고보니까 urls.py의 app_name에서 적은게 {% url %}로 가는거더라
-
-app은 설치한 app name이고 ':' 뒤의 name은 urls.py에 적은 path의 name들
-
-아 어떻게 이어지나 했더니 app_name과 설치한 app이름과, path의 name으로 이어지는거였네... 정말 대단해~~
-
-app_name은 끝
 
 url.py는 기본 startproject를 제외한 startapp 에서는 없으므로 따로 만들어 줘야 한다
 
-먼저 자동으로 만들어진 project의 urls.py이다
+먼저 자동으로 만들어지고, app을 추가한 project의 urls.py이다
 
 ```python
 urlpatterns = [
@@ -170,7 +167,7 @@ urlpatterns = [
     path('write/writeBoard/', views.writeBoard, name='writeBoard'),
 ]
 ```
-어우 생각보다 많다
+어우 많다
 
 먼저 path의 첫번쨰는 주소창에 나타날 이름이다
 
@@ -179,6 +176,8 @@ urlpatterns = [
 두번째는 views.py와 연결되어 거기에 쓰인 Class나 def들을 불러오는 것이고
 
 세번째는 html상에서 쓰이게 될 url name이다 
+
+
 
 #### views 생각 정리
 
@@ -233,3 +232,95 @@ ListView에는 get_queryset()재정의 할 수 있는 메서드가 있다.
 
 그 외에도 글 작성과 수정 삭제의 request가 있는데 그것은 templates의 html부분과 views.py, urls.py와 연결지어 다시 설명하겠다
 
+
+
+### 4. urls, views, templates의 관계
+
+urls.py, views.py, templates의 html의 연관 관계를 설명한다.
+
+
+#### urls.py와 views.py
+
+urls.py 의 app_name 
+
+html에서 다음 페이지로 넘어갈 때 href의 urls을 정할 때 {% url app:name %}를 쓴다
+
+그게 알고보니까 urls.py의 app_name에서 적은게 {% url %}로 가는것
+
+app은 설치한 app name이고 ':' 뒤의 name은 urls.py에 적은 path의 name들
+
+아 어떻게 이어지나 했더니 app_name과 설치한 app이름과, path의 name으로 이어지는 것 이었다
+
+예시로 urls.py에
+
+    path('', views.IndexView.as_view(), name='index'),
+    
+이러한 코드가 있다고 치자
+
+{% url app:name %} 
+
+위의 url은 urls.py의 app_name이 자동 적용
+
+app은 app_name과 동일하다고 생각하면 된다 
+
+name은 위의 path의 name명이 그대로 사용된다
+
+
+#### urls.py 와 templates
+
+기본적으로 path의 첫번째로 쓰는 주소가 html의 주소로 적용된다
+
+    path('<int:pk>/', views.Detail.as_view(), name='detail'),
+    
+만약 저런 urls의 path가 있다면 주소는 
+ex) 127.0.0.1:8080/pk/write 로 적용된다. 여기서 pk는 값이다
+
+다음으로 path의 <int:pk>는 url로 날라가는데 아래를 보자
+
+{% url 'pcsub:detail' board.id %}
+
+html의 href 코드에 이렇게 적어주는데 뒤의 board.id로 <int:pk>값을 넘겨 주는 것이다
+
+pcsub:detail의 주소는 ('<int:pk/') 이므로 
+
+
+#### views.py와 templates
+
+위에서는 Board DB에서 값을 불러오느라 views와 templates의 접점이 딱히 없었다
+
+하지만 write modify delete로 들어가면 접점이 생긴다
+
+아래의 코드는 views.py의 modifyBoard 함수이다
+
+```python
+def modifyBoard(request, pk):
+    board = get_object_or_404(Board, pk=pk)
+    if request.user != board.author:
+        messages.error(request, '수정권한이 없습니다')
+        return redirect('pcsub:modify', pk=board.id)
+    if request.method == 'POST':
+        title = request.POST.get('title', 'None')
+        context = request.POST.get('context', 'None')
+        pub_date = timezone.now()
+        board.title = title
+        board.context = context
+        board.pub_date = pub_date
+        board.author = request.user
+        board.save()
+    return redirect('pcsub:detail', pk=board.id)
+```
+modify에서는 수정작업 이므로 request와 pk라는 인자를 받는다
+
+다음은 get_object_or_404(Board, pk=pk)라는게 나온다
+
+이것의 의미는 url에서 board.id를 보내주는게 있지 않았나?
+
+그것의 이름이 pk로 넘어와 이 pk에 맞는 Board의 값을 받아온다(없으면 404 호출)
+
+다음으로 request는 html에서 form의 POST로 전달받은 값들이다
+
+request.POST.get('name',default)로 값을 받을 수 있다 (defalut는 생략 가능)
+
+현재 변수 board는 pk에 맞는 Board 값 이므로 값을 교체 하고, board.save()하여 값을 세이브 한다
+
+return redirect로 수정 후의 게시판을 보여준다
