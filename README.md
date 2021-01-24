@@ -115,7 +115,8 @@ models.py를 기반으로 새 마이그레이션을 생성한다
 migration은 add와 commit으로, migrate는 push 로 생각하면 될것같다
 
 
-### 3. templates
+### 3. urls, views, models약간?
+
 
 여기부턴 일단 내 생각대로 적고 정리하는 시간 / 지금 이해하는 중이라 따로 정리 할 수가 없다
 
@@ -173,8 +174,62 @@ urlpatterns = [
 
 먼저 path의 첫번쨰는 주소창에 나타날 이름이다
 
+<int:pk>는 board에서 쓸 id값을 넘겨주는건데 여기서 pk라는 이름도 views.py와 연결되어 사용하는 이름이므로 신중히 정하자
+
 두번째는 views.py와 연결되어 거기에 쓰인 Class나 def들을 불러오는 것이고
 
 세번째는 html상에서 쓰이게 될 url name이다 
 
 #### views 생각 정리
+
+urls.py와 연결되어있는 views.py이다
+
+class나 def로 models와 연결하여 urls로 뿌려주는 역할이다
+
+프로젝트의 index class를 먼저 보자
+```python
+class IndexView(generic.ListView):
+    template_name = 'pcsub/index.html'
+    context_object_name = 'board_list'
+
+    def get_queryset(self):
+        return Board.objects.filter(
+            pub_date__lte=timezone.now()
+        ).order_by('-pub_date')[:5]
+```
+board의 index에 맞춰서 ListView를 사용하여 board를 list로 가져왔다
+ 
+template_name은 index 페이지의 위치를 지정하는 것인데 django에서 지원해 주는 속성이다
+
+만약 template_name이 없으면 django에서 자동으로 인식해서 맞춰준다
+
+이 template_name을 지정하기 전에 Templates 폴더를 지정 해줘야 하는데
+
+project/settings.py에 TEMPLATES의 DIRS 부분에 project에서 templates를 저장 할 DIR를 정하면 된다
+
+
+다음으로 context_object_name
+
+이것도 django에서 기본적으로 제공하는 속성이다
+
+ListView를 반환하는데 이름을 따로 지정해주는데 사용하는게 context_object_name이다
+
+```
+class Detail(generic.DetailView):
+    template_name = 'pcsub/detail.html'
+    model = Board
+```
+Detail 이라는 views의 클래스인데 여기서는 안쓰고 model = Board 처럼 데이터만 넘겨줬다
+
+
+다음으로 get_queryset [Django](https://docs.djangoproject.com/en/3.0/topics/class-based-views/generic-display/#generic-views-of-objects) 참조
+
+ListView에는 get_queryset()재정의 할 수 있는 메서드가 있다. 
+
+기본적으로 queryset속성 값을 반환 하지만 더 많은 로직을 추가하는 데 사용할 수 있다
+
+여기서는 시간을 저장한 pub_date를 정렬하여 5개까지 보내주는데에 쓰였다
+
+
+그 외에도 글 작성과 수정 삭제의 request가 있는데 그것은 templates의 html부분과 views.py, urls.py와 연결지어 다시 설명하겠다
+
