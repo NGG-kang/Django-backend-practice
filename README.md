@@ -31,7 +31,7 @@ django 기반으로 네비게이션 조차 없는 완전 기본 게시판을 만
 
 게시판을 만들면서 사용한 코드와 내용들을 정리한 내용이다
 
-#### 1. 프로젝트 및 앱 생성
+### 1. 프로젝트 및 앱 생성
 
 기본적인 어드민 프로젝트 생성
   
@@ -57,7 +57,8 @@ project.setting 에서  INSTALLS_APPS에 app을 추가 해줘야 한다
 
 app.setting.py에 들어있으므로 그것을 참조 하면 된다
 
-#### 2. 모델 수정(데이터베이스 생성)
+
+### 2. 모델 수정(데이터베이스 생성)
 
 django에서는 데이터베이스 생성 명령어를 지원한다
 
@@ -85,7 +86,7 @@ class Board(models.Model):
 
 대충 Board 클래스로 만들고
 
-title, conext, pub_date를 넣었다
+title, conext, pub_date를 넣었다, id는 자동으로 만들어줘서 따로 만들 필요는 없다.
 
 django에서는 db를 models로 말한다
 
@@ -97,4 +98,18 @@ django의 Field들은
 
 author도 django에서 지원해주는 유저계정인데 나중에 알아보도록 하자
 
-일단 model에 
+아무튼 models.py에 이렇게만 작성하고 다음 명령어로 migrations 폴더를 만들어 줬다
+
+    python manage.py makemigrations app
+    
+이 명령어는 app 폴더에 migrations 폴더를 만들고
+
+models.py를 기반으로 새 마이그레이션을 생성한다
+
+    python manage.py migrate 
+    
+라는 명령어로 models.py에서 만든 클래스를 django에서 여차저차 해서 데이터베이스로 만들어 준다
+
+대충 말하자면 깃과 비슷하다
+
+migration은 add와 commit으로, migrate는 push 로 생각하면 될것같다
