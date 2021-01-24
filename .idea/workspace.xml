@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6aca7f02-3fa5-4271-ab7b-417a2c268400" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/django-commands.txt" beforeDir="false" afterPath="$PROJECT_DIR$/django-commands.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/db.sqlite3" afterDir="false" />
-    </list>
+    <list default="true" id="6aca7f02-3fa5-4271-ab7b-417a2c268400" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,6 +75,7 @@
       <workItem from="1611017697606" duration="3600000" />
       <workItem from="1611107743829" duration="9099000" />
       <workItem from="1611145021701" duration="106000" />
+      <workItem from="1611226105445" duration="594000" />
     </task>
     <servers />
   </component>
