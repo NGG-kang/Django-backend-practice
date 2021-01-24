@@ -5,4 +5,9 @@
 
  
 ### 1/20 django로 board 만들기 시작
-### 1/23 django 유저, 글 작성, 수정, 삭제 및 부트스트랩 조금
+
+### 1/23 django 유저 회원가입, 로그인, 로그아웃, 글 작성, 수정, 삭제 및 부트스트랩 
+
+### 1/24 django 연습으로 이해한것 정리
+
+django-admin startproject pjname 로 프로젝트 생성
