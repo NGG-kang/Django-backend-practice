@@ -113,3 +113,68 @@ models.py를 기반으로 새 마이그레이션을 생성한다
 대충 말하자면 깃과 비슷하다
 
 migration은 add와 commit으로, migrate는 push 로 생각하면 될것같다
+
+
+### 3. templates
+
+여기부턴 일단 내 생각대로 적고 정리하는 시간 / 지금 이해하는 중이라 따로 정리 할 수가 없다
+
+url, views, templates 이 셋이 화면 구성에는 가장 중요한 역할이다
+
+models도 데이터관련으로 중요하긴 하다만 정작 본인이 제대로 보질 않아서 일단 화면구성에 중점을 두었다
+
+#### urls 생각 정리
+
+urls.py 의 app_name 정리
+
+html에서 href의 urls을 정할 때 {% url app:name %}를 쓰잖아?
+
+그게 알고보니까 urls.py의 app_name에서 적은게 {% url %}로 가는거더라
+
+app은 설치한 app name이고 ':' 뒤의 name은 urls.py에 적은 path의 name들
+
+아 어떻게 이어지나 했더니 app_name과 설치한 app이름과, path의 name으로 이어지는거였네... 정말 대단해~~
+
+app_name은 끝
+
+url.py는 기본 startproject를 제외한 startapp 에서는 없으므로 따로 만들어 줘야 한다
+
+먼저 자동으로 만들어진 project의 urls.py이다
+
+```python
+urlpatterns = [
+    path('', include('pcsub.urls')),
+    path('pcsub/', include('pcsub.urls')),
+    path('common/', include('common.urls')),
+    path('admin/', admin.site.urls),
+]
+```
+django에서 지원하는 include, path를 활용해서 각 폴더의 urls.py에 접근 할 수가 있다
+
+그래서 이번 프로젝트에 만든 pcsub, common을 추가 해 줬다
+
+admin은 django에서 자동으로 만들어 준 것이다
+
+다음으로 app으로 따로 생성한 app의 urls.py이다
+
+```python
+app_name = 'pcsub'
+urlpatterns = [
+    path('', views.IndexView.as_view(), name='index'),
+    path('write/', views.write.as_view(), name='write'),
+    path('<int:pk>/', views.Detail.as_view(), name='detail'),
+    path('<int:pk>/delete', views.deleteBoard, name='delete'),
+    path('<int:pk>/modify', views.Modify.as_view(), name='modify'),
+    path('<int:pk>/modify/modifyBoard/', views.modifyBoard, name='modifyBoard'),
+    path('write/writeBoard/', views.writeBoard, name='writeBoard'),
+]
+```
+어우 생각보다 많다
+
+먼저 path의 첫번쨰는 주소창에 나타날 이름이다
+
+두번째는 views.py와 연결되어 거기에 쓰인 Class나 def들을 불러오는 것이고
+
+세번째는 html상에서 쓰이게 될 url name이다 
+
+#### views 생각 정리
