@@ -1,5 +1,5 @@
 # Full-Stack-practice
-
+=============
 기초부터 시작하는 풀스택 연습
 
 
@@ -11,22 +11,32 @@
 ### 1/24 django 연습으로 이해한것 정리
 
 django 기반으로 네비게이션 조차 없는 완전 기본 게시판을 만들어 봤다
+만든 기능으로는
+1. 회원가입
+2. 로그인, 로그아웃
+3. 게시글 등록
+4. 게시글 보기
+5. 게시글 수정
+6. 게시글 삭제
+볼품 없는 게시판이지만 연습한다는 의미로 만들어 보았다
+------------
+다음으로는 
 게시판을 만들면서 사용한 코드와 내용들을 정리한 내용이다
 
 기본적인 어드민 프로젝트 생성
 ```
- django-admin startproject project
+$ django-admin startproject project
 ```
 
 만들어진 프로젝트에서
 어드민 계정 생성
 ```
-python manage.py createsuperuser 
+$ python manage.py createsuperuser 
 ```
 
 프로젝트에서 앱 생성
 ```
- python manage.py startapp app
+$ python manage.py startapp app
 ```
 
 이렇게 만들기만 해도 절반은 왔다
