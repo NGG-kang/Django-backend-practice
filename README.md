@@ -10,9 +10,12 @@
 
 ### 1/24 django 연습으로 이해한것 정리
 
+django 기반으로 네비게이션 조차 없는 완전 기본 게시판을 만들어 봤다
+게시판을 만들면서 사용한 코드와 내용들을 정리한 내용이다
+
 기본적인 어드민 프로젝트 생성
 ```
- django-admin startproject pjname
+ django-admin startproject project
 ```
 
 만들어진 프로젝트에서
@@ -20,3 +23,16 @@
 ```
 python manage.py createsuperuser 
 ```
+
+프로젝트에서 앱 생성
+```
+ python manage.py startapp app
+```
+
+이렇게 만들기만 해도 절반은 왔다
+
+처음 시작 할 땐 세팅을 해줘야 하는데
+project.setting 에서  INSTALLS_APPS에 app을 추가 해줘야 한다
+이름이 app이라면 app.apps.AppConfig를 추가 하면 되는데 이건
+app.setting.py에 들어있으므로 그것을 참조 하면 된다
+
