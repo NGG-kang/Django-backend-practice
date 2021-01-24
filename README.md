@@ -10,4 +10,12 @@
 
 ### 1/24 django 연습으로 이해한것 정리
 
-django-admin startproject pjname 로 프로젝트 생성
+기본적인 어드민 프로젝트 생성
+code1
+ code2 
+ django-admin startproject pjname
+code3
+
+만들어진 프로젝트에서
+어드민 계정 생성
+python manage.py createsuperuser 
