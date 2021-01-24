@@ -29,11 +29,11 @@ django 기반으로 네비게이션 조차 없는 완전 기본 게시판을 만
 
 
 
-## 코드 정리
+## 코드 및 이해 한 내용 정리
 
 다음으로는 
 
-게시판을 만들면서 사용한 코드와 내용들을 정리한 내용이다
+게시판을 만들면서 사용한 코드와 내용을 내가 이해 한 대로 정리한 것이다
 
 
 
@@ -324,3 +324,26 @@ request.POST.get('name',default)로 값을 받을 수 있다 (defalut는 생략 
 현재 변수 board는 pk에 맞는 Board 값 이므로 값을 교체 하고, board.save()하여 값을 세이브 한다
 
 return redirect로 수정 후의 게시판을 보여준다
+
+
+
+### 5. Templates
+
+teamplates에서도 django에 지원하는 코드들이 많이 있다
+
+괄호와 %를 쓰면 django가 지원하는 메소드를 사용 할 수 있다 {% methon %}
+
+{% for a in a_list %} {% endfor %}
+
+{% if a %} {% else %} {% endif %}
+
+{% load static %}
+
+for문이나 if문을 사용 하려면 end문을 꼭 써줘야 한다
+
+괄호가 2개씩 들어가면 불러온 값들을 출력 할 수 있다  {{ 값 }}
+
+
+
+### 6. User author
+
