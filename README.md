@@ -32,18 +32,18 @@ django 기반으로 네비게이션 조차 없는 완전 기본 게시판을 만
 게시판을 만들면서 사용한 코드와 내용들을 정리한 내용이다
 
 기본적인 어드민 프로젝트 생성
-
- $ django-admin startproject project
+  
+    $ django-admin startproject project
 
 만들어진 프로젝트에서
 
 어드민 계정 생성
 
- $ python manage.py createsuperuser 
+    $ python manage.py createsuperuser 
 
 프로젝트에서 앱 생성
 
- $ python manage.py startapp app
+    $ python manage.py startapp app
 
 
 이렇게 만들기만 해도 절반은 왔다
