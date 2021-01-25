@@ -12,6 +12,12 @@
 
 django 기반으로 네비게이션 조차 없는 완전 기본 게시판을 만들어 봤다
 
+참조 : 
+
+회원, 부트스트랩 [점프투장고](https://wikidocs.net/book/4223)
+
+게시판 부분 [DjangoTutorial](https://docs.djangoproject.com/ko/3.1/intro/)
+
 만든 기능으로는
 
 1. 회원가입
@@ -325,7 +331,9 @@ request.POST.get('name',default)로 값을 받을 수 있다 (defalut는 생략 
 
 return redirect로 수정 후의 게시판을 보여준다
 
+아 참고로 title이나 context같은 POST로 받아오는 것들은 templates에서 name으로 가져온다
 
+id가 아닌 'name'이다... 기억 해두자
 
 ### 5. Templates
 
@@ -347,7 +355,41 @@ for문이나 if문을 사용 하려면 end문을 꼭 써줘야 한다
 
 ### 6. User author
 
-추가 예정
+
+Django에서는 기본적으로 어드민이나 유저에 관한 데이터를 제공한다
+
+project의 settting.py에서 install_apps에 django.contrib.auth 로 들어가 있다
+
+그것에 관한 정보들은 
+[Django auth](https://docs.djangoproject.com/en/3.1/ref/contrib/auth/)
+ 여기를 참조하면 될 것 같다
+
+내가 참조한 점프투장고에서는 다른 앱들을 추가함에 있어 user를 관리 할 수 있도록 common이라는 앱을 따로 만들었다
+
+    from django.contrib.auth import views as auth_views
+    
+auth의 view에서는 LoginView, LogoutView를 지원한다
+
+그래서 common의 view는 따로 만들지 않고 url에서만 만들었다
+
+```python
+app_name = 'common'
+urlpatterns = [
+    path('login/', auth_views.LoginView.as_view(template_name='common/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('signup/', views.signup, name='signup'),
+]
+```
+LoginView에서는 템플릿을 따로 정해뒀는데 이게 django에서 만들어준 view이다 보니까 registrator라는 폴더가 자동으로 지정되었다
+
+그래서 view에 template_name을 따로 지정해 주었다
+
+로그인, 로그아웃 후의 페이지도 패키지의 setting.py에 따로 정해주어야 한다
+```
+LOGIN_REDIRECT_URL = '/pcsub'
+LOGOUT_REDIRECT_URL = '/pcsub'
+```
+필자는 이렇게 넣어주었다
 
 ### 7. 기타
 
