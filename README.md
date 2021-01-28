@@ -364,7 +364,7 @@ project의 settting.py에서 install_apps에 django.contrib.auth 로 들어가 �
 [Django auth](https://docs.djangoproject.com/en/3.1/ref/contrib/auth/)
  여기를 참조하면 될 것 같다
 
-내가 참조한 점프투장고에서는 다른 앱들을 추가함에 있어 user를 관리 할 수 있도록 common이라는 앱을 따로 만들었다
+참고한 점프투장고에서는 다른 앱들을 추가함에 있어 user를 관리 할 수 있도록 common이라는 앱을 따로 만들었다
 
     from django.contrib.auth import views as auth_views
     
@@ -390,6 +390,39 @@ LOGIN_REDIRECT_URL = '/pcsub'
 LOGOUT_REDIRECT_URL = '/pcsub'
 ```
 필자는 이렇게 넣어주었다
+
+    from django.contrib.auth.models import User
+    
+django에서 user를 지원하므로 import를 하여 app의 models에서 ForeignKey로 가져오도록 해야 한다
+
+models를 다시 고친만큼 migrate도 다시 해줘야 한다
+
+
+    from django.contrib.auth.forms import UserCreationForm    
+
+django에서 지원하는 유저폼 / create, change, 인증 등 여러가지가 존재한다 
+[authForm](https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/)
+
+아마 이건 회원 수정, 삭제 등에 쓰일듯
+
+비밀번호 초기화를 위한 이메일 보내기 등 여러가지가 존재한다
+
+authform doc를 보면 비밀번호 확인과 맞을 시 User데이터 저장까지 해준다
+
+회원가입시 authClass에서 authenticate함수를 사용하여 인증하고, 유저를 반환한다
+
+login 함수를 사용하여 인징받은 유저를 로그인 시킨다, 여기선 세션을 사용한다
+
+인증을 받아야 로그인 사용을 할 수 있는 것 같다
+
+login, logout, 인증 등 view에서 쓸만한 것들이 존재함
+[authClass](https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/)
+
+html딴에서 user체크 방법은 django의 is_authenticated를 지원한다
+
+책에서는 이메일도 받아서 UserCreationForm 에서 Meta클래스를 오버라이딩 하여 username과 email을 반환하였는데
+
+forms.emailfield라는게 있구나...
 
 ### 7. 기타
 
