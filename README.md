@@ -117,11 +117,11 @@ author도 django에서 지원해주는 유저계정인데 나중에 알아보도
     
 이 명령어는 app 폴더에 migrations 폴더를 만들고
 
-models.py를 기반으로 새 마이그레이션을 생성한다
+models.py를 기반으로 새 마이그레이션을 생성한다(프로젝트 내에만 적용한다)
 
     python manage.py migrate 
     
-라는 명령어로 models.py에서 만든 클래스를 django에서 여차저차 해서 데이터베이스로 만들어 준다
+라는 명령어로 models.py에서 만든 클래스를 django에서 여차저차 해서 데이터베이스에 적용한다
 
 대충 말하자면 깃과 비슷하다
 
@@ -423,6 +423,11 @@ html딴에서 user체크 방법은 django의 is_authenticated를 지원한다
 책에서는 이메일도 받아서 UserCreationForm 에서 Meta클래스를 오버라이딩 하여 username과 email을 반환하였는데
 
 forms.emailfield라는게 있구나...
+
+html form에서 그냥 받아오는것보다 form 사용해서 받아오는것은 다음 프로젝트에서 한번 해보자
+[Djangoform](https://docs.djangoproject.com/en/3.1/topics/forms/)
+
+로그인 쪽은 지원하는 모듈들이 많더라... 중구난방으로 적어놓긴 했지만 다시 한번 프로젝트 진행하면서 이것저것 써 봐야겠다
 
 ### 7. 기타
 
